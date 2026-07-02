@@ -1,6 +1,24 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: distributed-rate-limiter
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  cloud:
+    gateway:
+      routes:
+        - id: httpbin
+          uri: https://httpbin.org
+          predicates:
+            - Path=/httpbin/**
+          filters:
+            - StripPrefix=1
 
 
 rate-limiter:

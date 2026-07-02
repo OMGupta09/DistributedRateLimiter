@@ -21,6 +21,8 @@ public class RateLimiterService {
 
     public Mono<Boolean> tryConsume(String clientId) {
 
+        System.out.println("Inside RateLimiterService");
+
         String key = rateLimiterProperties.getRedisPrefix() + clientId;
 
         RateLimitPolicy policy = getPolicy();

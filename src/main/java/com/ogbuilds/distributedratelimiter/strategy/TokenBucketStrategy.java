@@ -27,6 +27,12 @@ public class TokenBucketStrategy implements RateLimitingStrategy{
 
     private void refill(TokenBucket tokenBucket, RateLimitPolicy policy)
     {
+
+        System.out.println("================================");
+        System.out.println("Current time      : " + Instant.now());
+        System.out.println("Last refill time  : " + tokenBucket.getLastRefillTime());
+        System.out.println("Current tokens    : " + tokenBucket.getAvailableTokens());
+
         Instant now = Instant.now();
 
         Duration elapsed = Duration.between(tokenBucket.getLastRefillTime(),now);
@@ -41,10 +47,18 @@ public class TokenBucketStrategy implements RateLimitingStrategy{
 
         long tokensToAdd = elapsedIntervals*policy.getRefillTokens();
 
+        System.out.println("Elapsed millis    : " + elapsed.toMillis());
+        System.out.println("Refill millis     : " + policy.getRefillDuration().toMillis());
+        System.out.println("Intervals         : " + elapsedIntervals);
+
         tokenBucket.setAvailableTokens(Math.min(policy.getCapacity(),tokenBucket.getAvailableTokens()+tokensToAdd));
 
         tokenBucket.setLastRefillTime(
                 tokenBucket.getLastRefillTime().plus(policy.getRefillDuration().multipliedBy(elapsedIntervals))
         );
+
+        System.out.println("Tokens after refill : " + tokenBucket.getAvailableTokens());
+        System.out.println("Last refill updated : " + tokenBucket.getLastRefillTime());
+        System.out.println("================================");
     }
 }

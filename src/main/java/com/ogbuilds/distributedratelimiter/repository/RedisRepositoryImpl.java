@@ -15,6 +15,7 @@ public class RedisRepositoryImpl implements RedisRepository {
 
     @Override
     public Mono<TokenBucket> getBucket(String key) {
+        System.out.println("Fetching bucket from Redis...");
         return redisTemplate.opsForValue().get(key);
     }
 
