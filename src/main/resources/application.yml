@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: distributed-rate-limiter
+
+
+rate-limiter:
+  capacity: 10
+  refillTokens: 1
+  refillDuration: 6s
+  redisPrefix: rate_limit:user
