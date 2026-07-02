@@ -22,7 +22,7 @@ spring:
 
 
 rate-limiter:
-  capacity: 10
-  refillTokens: 1
-  refillDuration: 6s
+  capacity: 15
+  refillTokens: 2
+  refillDuration: 60s
   redisPrefix: rate_limit:user
